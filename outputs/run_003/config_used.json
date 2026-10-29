@@ -1,0 +1,16 @@
+{
+  "reference_width": 1920,
+  "reference_height": 1080,
+  "areas": {
+    "main_area": { "points": [[0.0, 1079.25], [1919.25, 1079.25], [1918.5, 0.0], [0.0, 0.0]] },
+    "violation_area": { "points": [[0.0, 609.0], [1917.75, 763.5], [1916.25, 295.5], [0.0, 268.5]] }
+  },
+  "area_source": "koordinat asli basis 2560x1440, dikonversi x0.75 ke basis 1920x1080 (video uji = downscale rapi 0.75 kedua sumbu)",
+  "confidence_threshold": 0.25,
+  "imgsz": 640,
+  "target_classes": ["Truck", "Light Vehicle", "Motorcycle", "Bus", "Truck HD"],
+  "occluder_classes": ["Truck", "Light Vehicle", "Motorcycle", "Bus", "Truck HD", "Dozzer"],
+  "frame_edge_margin_px": 8,
+  "max_missing_frames": 30,
+  "device": "auto"
+}

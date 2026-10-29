@@ -1,0 +1,15 @@
+{
+  "status": "completed",
+  "frames_processed": 7418,
+  "events": 15,
+  "decision_counts": {
+    "SKIPPED": 2856,
+    "IGNORED_NO_ID": 103,
+    "OUTSIDE": 593,
+    "VIOLATION": 542,
+    "IGNORED_TRUNCATED": 304,
+    "IGNORED_OCCLUDED": 1
+  },
+  "processing_seconds": 1712.36,
+  "avg_processing_fps": 4.33
+}
