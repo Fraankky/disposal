@@ -1,22 +1,17 @@
-# Python
+
 __pycache__/
 *.py[cod]
 .pytest_cache/
 
-# Sampah lokal
+
 codedb.snapshot
 .fuse_hidden*
 *.log
 
-# Data besar / bukan area kode
 model/
 docs/
 *.mp4
 *.pdf
-/image.png
 setup/*.png
 
-# Artefak run besar (bukti video & screenshot)
 outputs/*/annotated.mp4
-outputs/*/evidence_grid.png
-outputs/*/events.csv
