@@ -46,7 +46,7 @@ def open_video(path: str | Path) -> tuple[cv2.VideoCapture, VideoMeta]:
         raise ValueError(f"Video '{path}': resolusi tidak terbaca (file rusak?)")
     if fps <= 0.0 or not np.isfinite(fps):
         cap.release()
-        raise ValueError(f"Video '{path}': FPS tidak valid ({fps}); video FPS variabel tidak didukung (FR01)")
+        raise ValueError(f"Video '{path}': FPS tidak valid ({fps}); video FPS variabel tidak didukung")
     return cap, VideoMeta(width, height, fps, count if count > 0 else None)
 
 
@@ -64,7 +64,7 @@ def annotate(
     frame_index: int,
     video_time: float,
 ) -> None:
-    """Gambar area, bbox beserta status+alasan (teks, bukan warna saja), dan header waktu (FR04)."""
+    """Gambar area, bbox beserta status+alasan (teks, bukan warna saja), dan header waktu."""
     # Zona fill merah muda transparan: bbox utuh di dalamnya = pelanggaran (digambar sebelum bbox).
     vio_pts = np.int32(np.round(cfg.violation_area.points))
     overlay = frame.copy()

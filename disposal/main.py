@@ -22,7 +22,7 @@ def _resolve_device(device: str) -> str:
 
 
 def main(argv=None) -> int:
-    ap = argparse.ArgumentParser(description="Deteksi pelanggaran area disposal pada video lokal (PRD Disposal).")
+    ap = argparse.ArgumentParser(description="Deteksi pelanggaran area disposal pada video lokal.")
     ap.add_argument("--video", required=True)
     ap.add_argument("--model", required=True)
     ap.add_argument("--config", required=True)
@@ -43,7 +43,7 @@ def main(argv=None) -> int:
         if (meta.width, meta.height) != (run_cfg.reference_width, run_cfg.reference_height):
             raise ValueError(
                 f"Resolusi video {meta.width}x{meta.height} != referensi config "
-                f"{run_cfg.reference_width}x{run_cfg.reference_height} (FR03); "
+                f"{run_cfg.reference_width}x{run_cfg.reference_height}; "
                 "sesuaikan konfigurasi atau resolusi video"
             )
         out_dir = args.output
@@ -63,7 +63,7 @@ def main(argv=None) -> int:
         unknown = (set(run_cfg.target_classes) | set(run_cfg.occluder_classes)) - set(detector.names.values())
         if unknown:
             raise ValueError(
-                f"Kelas config tidak ada di model (FR02): {sorted(unknown)}; "
+                f"Kelas config tidak ada di model: {sorted(unknown)}; "
                 f"nama kelas model: {sorted(detector.names.values())}"
             )
         rules = AreaRules(

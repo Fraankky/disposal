@@ -17,14 +17,14 @@ REASON_NO_TRACK_ID = "PENDING_TRACK_ID"
 REASON_NOT_TARGET = "CLASS_NOT_TARGET"
 REASON_INVALID_BBOX = "INVALID_BBOX"
 
-# Toleransi numerik containment (PRD §3): kebocoran <=1% luas bbox masih dianggap di dalam,
+# Toleransi numerik containment: kebocoran <=1% luas bbox masih dianggap di dalam,
 # supaya bbox yang mepet garis polygon tidak flap keluar-masuk.
 _CONTAIN_EPS = 1e-2
 
 
 @dataclass(frozen=True)
 class Detection:
-    """Satu deteksi frame-native (kontrak data minimum PRD §5)."""
+    """Satu deteksi frame-native (kontrak data minimum pipeline)."""
 
     class_name: str | None
     confidence: float
@@ -48,7 +48,7 @@ class Decision:
 
 @dataclass(frozen=True)
 class Event:
-    """Satu episode masuk area (PRD §4) -> satu baris CSV."""
+    """Satu episode masuk area -> satu baris CSV."""
 
     track_id: int
     class_name: str | None
@@ -89,7 +89,7 @@ def _decision(d: Detection, status: str, reason: str, coverage: float, frame_ind
 
 
 class AreaRules:
-    """Area rules (PRD §5): pengecualian, keputusan, dan state episode."""
+    """Area rules: pengecualian, keputusan, dan state episode."""
 
     def __init__(
         self,
@@ -114,7 +114,7 @@ class AreaRules:
         return x1 <= self.margin or y1 <= self.margin or x2 >= w - self.margin or y2 >= h - self.margin
 
     def _coverage(self, bbox) -> float:
-        """coverage_ratio = luas(B ∩ P) / luas(B) — bukan IoU (PRD §3)."""
+        """coverage_ratio = luas(B ∩ P) / luas(B) — bukan IoU."""
         denom = bbox_area(bbox)
         if denom <= 0.0:
             return 0.0
@@ -159,7 +159,7 @@ class AreaRules:
                 decisions.append(_decision(d, SKIPPED, REASON_NOT_TARGET, cov, frame_index))
                 continue
             if d.track_id is None:
-                # Tanpa track id tidak ada episode -> tidak pernah menulis event (PRD §4).
+                # Tanpa track id tidak ada episode -> tidak pernah menulis event.
                 decisions.append(_decision(d, IGNORED_NO_ID, REASON_NO_TRACK_ID, cov, frame_index))
                 continue
             if state is None:

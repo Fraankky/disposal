@@ -1,4 +1,4 @@
-"""Matriks perilaku wajib AC01–AC14 (bagian geometri & episode) — tanpa video/model."""
+"""Matriks perilaku geometri & episode — tanpa video/model."""
 
 import numpy as np
 import pytest

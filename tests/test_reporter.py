@@ -1,4 +1,4 @@
-"""Reporter: header tetap walau nol event (AC13), baris per event, summary."""
+"""Reporter: header tetap walau nol event, baris per event, summary."""
 
 from pathlib import Path
 

@@ -21,7 +21,7 @@ class Reporter:
         self._fh = (run_dir / "violations.csv").open("w", newline="", encoding="utf-8")
         self._writer = csv.DictWriter(self._fh, fieldnames=CSV_FIELDS)
         self._writer.writeheader()
-        self._fh.flush()  # CSV berheader tetap ada walau nol event (AC13)
+        self._fh.flush()  # CSV berheader tetap ada walau nol event
 
     def write_event(self, event: Event, event_id: str) -> None:
         row = {

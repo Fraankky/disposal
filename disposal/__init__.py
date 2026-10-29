@@ -1,1 +1,1 @@
-"""Aplikasi deteksi pelanggaran area disposal (PRD): satu video lokal, satu polygon keputusan."""
+"""Aplikasi deteksi pelanggaran area disposal: satu video lokal, satu polygon keputusan."""

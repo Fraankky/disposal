@@ -1,4 +1,4 @@
-"""Validasi config (trust boundary -> AC14)."""
+"""Validasi config (trust boundary)."""
 
 import json
 
