@@ -90,7 +90,6 @@ def _decision(d: Detection, status: str, reason: str, coverage: float, frame_ind
 
 class AreaRules:
     """Area rules: pengecualian, keputusan, dan state episode."""
-
     def __init__(
         self,
         violation_area,
@@ -137,10 +136,14 @@ class AreaRules:
         for tid in list(self.states):
             if frame_index - self.states[tid].last_seen_frame > self.max_missing:
                 del self.states[tid]
-        occluder_boxes = [d.bbox for d in detections if d.class_name in self.occluders and bbox_area(d.bbox) > 0]
+        occluder_boxes = [
+            (i, d.bbox)
+            for i, d in enumerate(detections)
+            if d.class_name in self.occluders and bbox_area(d.bbox) > 0
+        ]
         decisions: list[Decision] = []
         events: list[Event] = []
-        for d in detections:
+        for i, d in enumerate(detections):
             if bbox_area(d.bbox) <= 0:
                 decisions.append(_decision(d, SKIPPED, REASON_INVALID_BBOX, 0.0, frame_index))
                 continue
@@ -149,7 +152,7 @@ class AreaRules:
             cov = self._coverage(d.bbox)
             if self._truncated(d.bbox, frame_size):
                 status, reason = IGNORED_TRUNCATED, REASON_FRAME_EDGE
-            elif self._occluded(d.bbox, [b for b in occluder_boxes if b != d.bbox]):
+            elif self._occluded(d.bbox, (b for j, b in occluder_boxes if j != i)):
                 status, reason = IGNORED_OCCLUDED, REASON_OVERLAP
             elif is_target and cov < 1.0 - _CONTAIN_EPS:
                 status, reason = OUTSIDE, REASON_OUTSIDE
@@ -159,7 +162,6 @@ class AreaRules:
                 decisions.append(_decision(d, SKIPPED, REASON_NOT_TARGET, cov, frame_index))
                 continue
             if d.track_id is None:
-                # Tanpa track id tidak ada episode -> tidak pernah menulis event.
                 decisions.append(_decision(d, IGNORED_NO_ID, REASON_NO_TRACK_ID, cov, frame_index))
                 continue
             if state is None:

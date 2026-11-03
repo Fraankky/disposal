@@ -1,0 +1,15 @@
+{
+  "reference_width": 1280,
+  "reference_height": 960,
+  "areas": {
+    "main_area": { "points": [[1, 958], [1279, 959], [1279, 1], [1, 2]] },
+    "violation_area": { "points": [[1279, 672], [6, 532], [5, 0], [1278, 5]] }
+  },
+  "confidence_threshold": 0.25,
+  "imgsz": 960,
+  "target_classes": ["Truck", "Light Vehicle", "Motorcycle", "Bus", "Truck HD"],
+  "occluder_classes": ["Truck", "Light Vehicle", "Motorcycle", "Bus", "Truck HD", "Dozzer"],
+  "frame_edge_margin_px": 8,
+  "max_missing_frames": 30,
+  "device": "auto"
+}
